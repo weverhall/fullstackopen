@@ -1,24 +1,24 @@
 import { useState } from 'react'
 
-const Button = (props) => {
+const Button = ({ handleClick, text }) => {
   return (
-  <button onClick={props.handleClick}>
-  {props.text}
+  <button onClick={handleClick}>
+  {text}
   </button>
   )
 }
 
-const StatisticLine = (props) => {
+const StatisticLine = ({ text, value }) => {
   return (
   <tr>
-    <td>{props.text}</td>
-    <td>{props.value}</td>
+    <td>{text}</td>
+    <td>{value}</td>
   </tr>
   )
 }
 
-const Statistics = (props) => {
-  if (props.goodReviews + props.neutralReviews + props.badReviews === 0) {
+const Statistics = ({ goodReviews, neutralReviews, badReviews}) => {
+  if (goodReviews + neutralReviews + badReviews === 0) {
     return (
       <p>No feedback yet!</p>
     )
@@ -27,12 +27,12 @@ const Statistics = (props) => {
   return (
   <table>
     <tbody>
-    <StatisticLine text="good" value ={props.goodReviews} />
-    <StatisticLine text="neutral" value ={props.neutralReviews} />
-    <StatisticLine text="bad" value ={props.badReviews} />
-    <StatisticLine text="all" value ={props.goodReviews + props.neutralReviews + props.badReviews} />
-    <StatisticLine text="average" value ={(props.goodReviews + (-1 * props.badReviews))/(props.goodReviews + props.badReviews + props.neutralReviews)} />
-    <StatisticLine text="positive" value ={`${props.goodReviews / (props.goodReviews + props.badReviews + props.neutralReviews) * 100} %`} />
+    <StatisticLine text="good" value={goodReviews} />
+    <StatisticLine text="neutral" value={neutralReviews} />
+    <StatisticLine text="bad" value={badReviews} />
+    <StatisticLine text="all" value={goodReviews + neutralReviews + badReviews} />
+    <StatisticLine text="average" value={(goodReviews + (-1 * badReviews))/(goodReviews + badReviews + neutralReviews)} />
+    <StatisticLine text="positive" value={`${goodReviews / (goodReviews + badReviews + neutralReviews) * 100} %`} />
     </tbody>
   </table>
   )
