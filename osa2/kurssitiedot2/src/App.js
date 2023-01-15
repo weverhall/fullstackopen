@@ -1,23 +1,31 @@
-const Header = ({ course }) => {
+const Header = ({ courses }) => {
   return (
     <div>
-      <h1>{course.name}</h1>
+      <h1>{courses.name}</h1>
     </div>
   )
 }
 
-const Content = ({ course }) => {
+const Content = ({ courses }) => {
   return (
     <div>
-      {course.parts.map((course) => 
-        <Part key={course.id} part={course} />
+      {courses.parts.map((courses) => 
+        <Part key={courses.id} part={courses} />
       )}
     </div>
   )
 }
 
+const Total = ({ courses }) => {
+  const total = courses.parts.reduce(function(total, part) {
+    return total + part.exercises}, 0)
+
+  return (
+    <p><b>total of {total} exercises</b></p>
+  ) 
+}
+
 const Part = (props) => {
-  console.log(props)
   return (
     <div>
       <p>{props.part.name} {props.part.exercises}</p>
@@ -25,17 +33,18 @@ const Part = (props) => {
   )
 }
 
-const Course = ({ course }) => {
+const Courses = ({ courses }) => {
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
+      <Header courses={courses} />
+      <Content courses={courses} />
+      <Total courses={courses} />
     </div>
   )
 }
 
 const App = () => {
-  const course = {
+  const courses = {
     name: 'Half Stack application development',
     id: 1,
     parts: [
@@ -53,13 +62,18 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
 
   return (
     <div>
-      <Course course={course} />
+      <Courses courses={courses} />
     </div>
   )
 }
