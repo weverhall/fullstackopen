@@ -5,10 +5,12 @@ const Filter = (props) => {
         props.setNewFilter(event.target.value)
     }
 
-return (
-      <div>filter shown with <input value={props.newFilter} 
-      onChange={handleFilterChange}/></div>
-    )
+    return (
+        <div>filter shown with <input 
+            value={props.newFilter} 
+            onChange={handleFilterChange}/>
+        </div>
+        )
 }
 
 export default Filter

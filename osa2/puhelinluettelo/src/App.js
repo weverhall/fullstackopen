@@ -17,8 +17,7 @@ const App = () => {
       .then(response => {
       setPersons(response.data)}
       )
-    },
-  [])
+    }, [])
 
   return (   
     <div>

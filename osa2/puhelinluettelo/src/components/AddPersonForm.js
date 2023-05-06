@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 const AddPersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber}) => {
     const addPerson = (event) => {
@@ -8,27 +9,24 @@ const AddPersonForm = ({persons, setPersons, newName, setNewName, newNumber, set
             number: newNumber
         }
 
-      const findPerson = 
-        persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
-
-        if(findPerson !== undefined) {
-          window.alert(`${newName} is already added to phonebook`)
-        }
-
-        else {
-          setPersons(persons.concat(personObject))   
-        }
-        setNewName('')
-        setNewNumber('')
-      }
+        persons.find(person => person.name === newName)
+            ? alert(`${newName} is already added to phonebook`)
+            : axios
+                .post('http://localhost:3001/persons', personObject)
+                .then(response => {
+                setPersons(persons.concat(response.data))
+        })            
+    }
 
     const handlePersonChange = (event) => {
         setNewName(event.target.value)
     }
+
     const handleNumberChange = (event) => {
         setNewNumber(event.target.value)
     }
 
+    
     return (
     <form onSubmit={addPerson}>
         <div>
