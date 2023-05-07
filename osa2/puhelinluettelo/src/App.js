@@ -17,8 +17,8 @@ const App = () => {
   useEffect(() => {
     personService
       .getAll()
-      .then(getPersons => {
-      setPersons(getPersons)}
+      .then(data => {
+      setPersons(data)}
       )
     }, [])
 
@@ -35,8 +35,8 @@ const App = () => {
         setMessage={setMessage} setError={setError} />
 
       <h2>Numbers</h2>
-      <Show persons={persons} newFilter={newFilter} setPersons={setPersons}
-        setMessage={setMessage} setError={setError} />
+      <Show persons={persons} setPersons={setPersons}
+        setMessage={setMessage} setError={setError} newFilter={newFilter} />
     </div>
   )
 }
