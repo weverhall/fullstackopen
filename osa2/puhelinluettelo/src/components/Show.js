@@ -2,7 +2,7 @@ import React from 'react'
 import personService from '../services/Persons'
 
 
-const Show = ({persons, newFilter, setPersons}) => {
+const Show = ({persons, newFilter, setPersons, setMessage, setError}) => {
     const personsToShow = persons.filter(person => 
         person.name.toLowerCase().includes(newFilter))
 
@@ -10,8 +10,18 @@ const Show = ({persons, newFilter, setPersons}) => {
         if (window.confirm(`delete ${name}?`)) {
             personService
                 .remove(id)
-                .then(() => {setPersons(persons.filter(person => person.id !== id))}
+                .catch(error => {
+                    setError(true)
+                    setMessage(`${name} has already been removed`)
+                })
+            setMessage(
+                `deleted ${name}`
             )
+            setTimeout(() => {
+                setMessage(null)
+            }, 3500)
+
+            setPersons(persons.filter(person => person.id !== id))
         }
     }
 

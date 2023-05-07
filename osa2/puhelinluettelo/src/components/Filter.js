@@ -7,9 +7,9 @@ const Filter = (props) => {
     }
 
     return (
-        <div>filter shown with <input 
+        <div>filter shown with: <input 
             value={props.newFilter} 
-            onChange={handleFilterChange}/>
+            onChange={handleFilterChange} />
         </div>
     )
 }

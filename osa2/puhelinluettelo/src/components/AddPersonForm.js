@@ -2,7 +2,7 @@ import React from 'react'
 import personService from '../services/Persons'
 
 
-const AddPersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber}) => {
+const AddPersonForm = ({persons, setPersons, newName, setNewName, newNumber, setNewNumber, setMessage, setError}) => {
     const addPerson = (event) => {
         event.preventDefault()
         const personObject = {
@@ -10,20 +10,46 @@ const AddPersonForm = ({persons, setPersons, newName, setNewName, newNumber, set
             number: newNumber
         }
 
-        persons.find(person => person.name === newName)
-            ? alert(`${newName} is already added to phonebook`)
-            : personService
+        const findPerson = persons.find(person => person.name === newName)
+
+        if (findPerson !== undefined) {
+            alert(`${newName} is already added to phonebook; replace existing number?`)
+
+            personService
+                .update(findPerson.id, personObject)
+                .then(input => {
+                    setPersons(persons.map(person => 
+                        person.id !== findPerson.id ? person : input))
+                    setMessage(
+                        `updated ${findPerson.name}'s number`
+                    )
+                })
+                .catch(error => {
+                    setError(true)
+                    setMessage(`${findPerson.name} has already been removed`)
+                })
+            setTimeout(() => {
+                setMessage(null)
+            }, 3500)
+        }
+
+        else {
+            personService
                 .create(personObject)
                 .then(personObject => {
                     setPersons(persons.concat(personObject))
                     setNewName('')
                     setNewNumber('')
-                }
-            )
+                    setMessage(`added ${personObject.name}`)
+                })
+            setTimeout(() => {
+                setMessage(null)
+            }, 3500)         
         }
+      }
 
     const handlePersonChange = (event) => {
-        setNewName(event.target.value)
+    setNewName(event.target.value)
     }
 
     const handleNumberChange = (event) => {
