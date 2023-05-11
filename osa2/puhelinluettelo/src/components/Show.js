@@ -3,8 +3,11 @@ import personService from '../services/Persons'
 
 
 const Show = ({ persons, newFilter, setPersons, setMessage, setError }) => {
-  const personsToShow = persons.filter(person => 
-    person.name.toLowerCase().includes(newFilter))
+  const personsToShow = persons
+    .filter((person) => person !== null)
+    .filter((person) =>
+      person.name.toLowerCase().includes(newFilter)
+    )
 
   const handleClick = (id, name) => () => {
       if (window.confirm(`delete ${name}?`)) {
@@ -14,8 +17,8 @@ const Show = ({ persons, newFilter, setPersons, setMessage, setError }) => {
             setError(true)
             setMessage(`${name} has already been removed`)
             })
-          setMessage(
-            `deleted ${name}`
+          setError(false)
+          setMessage(`deleted ${name}`
           )
         setTimeout(() => {
           setMessage(null)

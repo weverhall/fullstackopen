@@ -26,11 +26,12 @@ const AddPersonForm = ({ persons, setPersons, newName, setNewName, newNumber, se
               person.id !== findPerson.id ? person : input
             )
           )
+        setError(false)
         setMessage(`updated ${findPerson.name}'s number`)
         })
         .catch((error) => {
           setError(true)
-          setMessage(`${findPerson.name} has already been removed`)
+          setMessage(error.response.data.error)
         })
       setTimeout(() => {
         setMessage(null)
