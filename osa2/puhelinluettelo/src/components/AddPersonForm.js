@@ -43,6 +43,10 @@ const AddPersonForm = ({ persons, setPersons, newName, setNewName, newNumber, se
         setNewNumber("")
         setMessage(`added ${personObject.name}`)
       })
+      .catch((error) => {
+        setError(true)
+        setMessage(`${console.log(error.response.data.error)}`)
+      })
       setTimeout(() => {
         setMessage(null)
       }, 3500)
