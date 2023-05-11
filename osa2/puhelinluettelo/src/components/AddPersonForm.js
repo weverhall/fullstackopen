@@ -8,7 +8,7 @@ const AddPersonForm = ({ persons, setPersons, newName, setNewName, newNumber, se
 
     const personObject = {
       name: newName,
-      number: newNumber,
+      number: newNumber
     }
 
     const findPerson = persons.find((person) => person.name === newName)
@@ -41,11 +41,12 @@ const AddPersonForm = ({ persons, setPersons, newName, setNewName, newNumber, se
         setPersons(persons.concat(personObject))
         setNewName("")
         setNewNumber("")
+        setError(false)
         setMessage(`added ${personObject.name}`)
       })
       .catch((error) => {
         setError(true)
-        setMessage(`${console.log(error.response.data.error)}`)
+        setMessage(error.response.data.error)
       })
       setTimeout(() => {
         setMessage(null)
