@@ -47,6 +47,58 @@ test('new blog can be added', async() => {
   expect(finalTitles).toContain('brandNewBlog')
 })
 
+test('blog can be updated', async() => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToUpdate = blogsAtStart[0]
+
+  const testBlog = {
+    ...blogToUpdate,
+    likes: blogToUpdate.likes + 1
+  }
+
+  await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send(testBlog)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const finalBlogs = await helper.blogsInDb()
+  expect(finalBlogs).toHaveLength(helper.initialBlogs.length)
+
+  const updatedBlog = finalBlogs.find(blog => blog.id === blogToUpdate.id)
+  expect(updatedBlog.likes).toBe(blogToUpdate.likes + 1)
+})
+
+test('blog can be deleted with valid id', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const finalBlogs = await helper.blogsInDb()
+  expect(finalBlogs).toHaveLength(helper.initialBlogs.length - 1)
+
+  const finalTitles = finalBlogs.map(n => n.title)
+  expect(finalTitles).not.toContain(blogToDelete.title)
+})
+
+test('blogs are unaffected when deleting with invalid id', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+
+  await api
+    .delete('/api/blogs/6461ee8900ced179b828987123')
+    .expect(400)
+
+  const finalBlogs = await helper.blogsInDb()
+  expect(finalBlogs).toHaveLength(helper.initialBlogs.length)
+
+  const finalTitles = finalBlogs.map(n => n.title)
+  expect(finalTitles).toContain(blogToDelete.title)
+})
+
 test('blog likes set to zero if likes property missing', async() => {
   const testBlog = {
     title: 'blogWithoutLikes',
