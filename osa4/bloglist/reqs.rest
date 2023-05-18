@@ -1,14 +1,39 @@
+### ADD BLOG
+
 POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbCIsImlkIjoiNjQ2NTM2ZGZiMzY1NzViZmE1Y2QyODk2IiwiaWF0IjoxNjg0NDIyMzE3LCJleHAiOjE2ODQ0MjU5MTd9.OXpFF9bDGRYetAaGEZFWAC8F6xoOnzBcwoonoTsu9Wk
+
+{
+  "title": "Blog 100",
+  "author": "W",
+  "url": "www.testblog.com",
+  "likes": 100
+}
+
+### DELETE BLOG
+
+DELETE http://localhost:3003/api/blogs/64663d3add3497fe1de06b76
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbCIsImlkIjoiNjQ2NTM2ZGZiMzY1NzViZmE1Y2QyODk2IiwiaWF0IjoxNjg0NDIyMzE3LCJleHAiOjE2ODQ0MjU5MTd9.OXpFF9bDGRYetAaGEZFWAC8F6xoOnzBcwoonoTsu9Wk
+
+### CREATE USER
+
+POST http://localhost:3003/api/users/ 
 Content-Type: application/json
 
 {
-  "title": "Blog 9",
-  "author": "WE",
-  "url": "www.testblog.com",
-  "likes": 9
+  "username": "weverhall",
+  "name": "Everhall",
+  "password": "hunter2"
 }
 
-###
+### LOGIN USER
 
-DELETE http://localhost:3003/api/blogs/645e436970cf0d3f6cdd7336
+POST http://localhost:3003/api/login/ 
 Content-Type: application/json
+
+{
+  "username": "weverhall",
+  "password": "hunter2"
+}
