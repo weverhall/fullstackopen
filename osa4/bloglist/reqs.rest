@@ -2,20 +2,20 @@
 
 POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbCIsImlkIjoiNjQ2NTM2ZGZiMzY1NzViZmE1Y2QyODk2IiwiaWF0IjoxNjg0NDIyMzE3LCJleHAiOjE2ODQ0MjU5MTd9.OXpFF9bDGRYetAaGEZFWAC8F6xoOnzBcwoonoTsu9Wk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbDIiLCJpZCI6IjY0NjY3ZDZmNDM0ZTBlNWUzOWZiZWNlNiIsImlhdCI6MTY4NDQzODM5MCwiZXhwIjoxNjg0NDQxOTkwfQ.1smlxnV_zZwBW53p8h7Bktha_gdBSGvJPbh0mReJtGQ
 
 {
-  "title": "Blog 100",
+  "title": "Blog 101",
   "author": "W",
   "url": "www.testblog.com",
-  "likes": 100
+  "likes": 101
 }
 
 ### DELETE BLOG
 
-DELETE http://localhost:3003/api/blogs/64663d3add3497fe1de06b76
+DELETE http://localhost:3003/api/blogs/64663ed8009aefb6c477b52e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbCIsImlkIjoiNjQ2NTM2ZGZiMzY1NzViZmE1Y2QyODk2IiwiaWF0IjoxNjg0NDIyMzE3LCJleHAiOjE2ODQ0MjU5MTd9.OXpFF9bDGRYetAaGEZFWAC8F6xoOnzBcwoonoTsu9Wk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndldmVyaGFsbCIsImlkIjoiNjQ2NTM2ZGZiMzY1NzViZmE1Y2QyODk2IiwiaWF0IjoxNjg0NDM4NTQxLCJleHAiOjE2ODQ0NDIxNDF9.Z3YC7ZVAZsC1G1N8-eEUXP3HTFXnV_c03-sj1C9xuDw
 
 ### CREATE USER
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ### LOGIN USER
 
-POST http://localhost:3003/api/login/ 
+POST http://localhost:3003/api/login/
 Content-Type: application/json
 
 {
