@@ -21,22 +21,30 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
     removeBlog(blog.id)
   }
 
+  const toggleView = () => {
+    setViewAll(!viewAll)
+  }
+
   return (
     <div style={blogStyle} className='blog'>
-      {viewAll ?
+      {viewAll
+        ?
         <div>
-          {blog.title} - {blog.author} <button onClick={() =>
-            setViewAll(false)}>hide</button><br></br>
+          {blog.title} - {blog.author} <button
+            onClick={toggleView}>hide</button><br></br>
           {blog.url}<br></br>
-          {blog.likes} <button onClick={handleLike}>like</button><br></br>
+          {blog.likes} <button
+            onClick={handleLike}>like</button><br></br>
           {blog.user.name}<br></br>
           {blog.user.username === user.username ?
-            <button onClick={handleRemove}>remove</button> :
+            <button
+              onClick={handleRemove}>remove</button> :
             <p></p>}
-        </div> :
+        </div>
+        :
         <div>
-          {blog.title} - {blog.author} <button onClick={() =>
-            setViewAll(true)}>view</button>
+          {blog.title} - {blog.author} <button
+            onClick={toggleView}>view</button><br></br>
         </div>
       }
     </div>
