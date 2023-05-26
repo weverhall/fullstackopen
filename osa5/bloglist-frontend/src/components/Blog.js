@@ -33,17 +33,16 @@ const Blog = ({ blog, likeBlog, removeBlog, user }) => {
           {blog.title} - {blog.author} <button
             onClick={toggleView}>hide</button><br></br>
           {blog.url}<br></br>
-          {blog.likes} <button
+          {blog.likes} <button id='like'
             onClick={handleLike}>like</button><br></br>
           {blog.user.name}<br></br>
-          {blog.user.username === user.username ?
-            <button
-              onClick={handleRemove}>remove</button> :
+          {blog.user.username === user.username ? <button id='remove'
+            onClick={handleRemove}>remove</button> :
             <p></p>}
         </div>
         :
         <div>
-          {blog.title} - {blog.author} <button
+          {blog.title} - {blog.author} <button className='view'
             onClick={toggleView}>view</button><br></br>
         </div>
       }
