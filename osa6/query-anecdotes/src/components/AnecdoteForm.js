@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { createAnecdote } from '../requests'
+import { useNotificationDispatch } from "../NotificationContext"
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient()
+  const dispatch = useNotificationDispatch()
 
   const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -10,7 +12,13 @@ const AnecdoteForm = () => {
     onSuccess: (newAnecdote) => {
       const anecdotes = queryClient.getQueryData('anecdotes')
       queryClient.invalidateQueries('anecdotes', anecdotes.concat(newAnecdote))
-  }
+  },
+    onError: () => {
+      dispatch({ type: 'SHOW', payload: 'anecdote must be at least 5 characters long' })
+      setTimeout(() => {
+        dispatch({ type: 'HIDE' })
+      }, 5000)
+    }
   })
 
   const submitAnecdote = async (event) => {
