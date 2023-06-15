@@ -16,16 +16,8 @@ const Anecdotes = () => {
   })
 
   const submitVote = (anecdote) => {
-    vote(anecdote)
-    dispatchMessage(anecdote.content)
-  }
-
-  const vote = (anecdote) => {
     dispatch(addVote(anecdote))
-  }
-
-  const dispatchMessage = (content) => {
-    dispatch(setNotification('voted anecdote: ', content, 5))
+    dispatch(setNotification('voted anecdote: ', anecdote.content, 5))
   }
 
   const style = {
