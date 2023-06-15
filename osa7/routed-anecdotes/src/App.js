@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useField } from './hooks'
 
 import {
   Routes,
@@ -23,7 +24,7 @@ const Menu = () => {
 
 const Anecdote = ({ anecdote }) => (
   <div>
-    <h2> {anecdote.content} by {anecdote.author}</h2>
+    <h2>{anecdote.content} by {anecdote.author}</h2>
     <p>has {anecdote.votes} votes</p>
     <p>for more info see <a href={anecdote.info}> {anecdote.info}</a></p>
   </div>
@@ -66,20 +67,31 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
-
+  const content = useField('')
+  const author = useField('')
+  const info = useField('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.addNew({
-      content,
-      author,
-      info,
+    const newAnecdote = {
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
-    })
+    }
+    props.addNew(newAnecdote)
   }
+
+  const resetFields = (e) => {
+    e.preventDefault()
+    content.reset()
+    author.reset()
+    info.reset()
+  }
+
+  const { reset: contentReset, ...contentInput } = content
+  const { reset: authorReset, ...authorInput } = author
+  const { reset: infoReset, ...infoInput } = info
 
   return (
     <div>
@@ -87,17 +99,18 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...contentInput} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...authorInput} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...infoInput} />
         </div>
-        <button>create</button>
+        <button onClick={handleSubmit}>create</button>
+        <button onClick={resetFields}>reset</button>
       </form>
     </div>
   )
