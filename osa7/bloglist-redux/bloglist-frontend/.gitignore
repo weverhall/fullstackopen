@@ -1,0 +1,51 @@
+# Dependency
+node_modules/
+*.pnp*
+
+# Build
+build/
+dist/
+
+# Environment
+*.env*
+
+# Testing
+coverage/
+.nyc_output/
+cypress/videos/
+cypress/screenshots/
+
+# Runtime
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Secrets
+secrets/
+*.secret
+*.key
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Temp
+.tmp/
+.temp/
+
+# Cache
+.cache/
+.cached/
+
+# Logs
+logs/
+*.log*
