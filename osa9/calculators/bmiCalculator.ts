@@ -1,19 +1,19 @@
-interface BmiValues {
+interface BMITypes {
   centimeters: number;
   kilograms: number;
 }
 
 export const calculateBmi = (centimeters: number, kilograms: number) => {
-  const mSquared = (centimeters/100)^2
-  const bmi = kilograms/mSquared
+  const mSquared = (centimeters/100)**2;
+  const bmi = kilograms/mSquared;
 
   switch (true) {
     case bmi < 16:
       return "severely underweight";
     case bmi >= 16 && bmi < 17:
-      return "moderately underweight";
+      return "underweight";
     case bmi >= 17 && bmi < 18.5:
-      return "mildly underweight";
+      return "slightly underweight";
     case bmi >= 18.5 && bmi < 25:
       return "normal";
     case bmi >= 25 && bmi < 30:
@@ -23,7 +23,7 @@ export const calculateBmi = (centimeters: number, kilograms: number) => {
   }
 };
 
-const parseArguments = (args: Array<string>): BmiValues => {
+const parseArguments = (args: Array<string>): BMITypes => {
   if (args.length < 4) throw new Error('too few arguments');
   if (args.length > 4) throw new Error('too many arguments');
 
@@ -31,11 +31,11 @@ const parseArguments = (args: Array<string>): BmiValues => {
       return {
         centimeters: Number(args[2]),
         kilograms: Number(args[3])
-      }
+      };
   } else {
       throw new Error('wrong types');
   }
-}
+};
 
 try {
   const { centimeters, kilograms } = parseArguments(process.argv);

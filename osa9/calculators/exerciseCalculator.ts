@@ -1,4 +1,25 @@
-interface ExercisesResult {
+interface ExerciseTypes {
+  exercisePeriod: Array<number>;
+  target: number;
+}
+
+const parseArgs = (args: Array<string>) : ExerciseTypes => {
+  if (args.length < 3) throw new Error('too few arguments');
+  if (args.length > 10) throw new Error('too many arguments');
+
+  const argsToNumbers = args.map(value => Number(value));
+  if (!argsToNumbers.includes(NaN)) {
+    const target = Number(argsToNumbers.shift());
+    return {
+      exercisePeriod: argsToNumbers,
+      target: target
+      };
+  } else {
+    throw new Error('wrong types');
+  }
+};
+
+interface ExerciseCalcTypes {
   periodLength: number;
   trainingDays: number;
   success: boolean;
@@ -8,38 +29,11 @@ interface ExercisesResult {
   average: number;
 }
 
-interface ExerciseValues {
-  periodLength: number;
-  trainingDays: number;
-  success: boolean;
-  target: number;
-  average: number;
-}
-
-const parseArgs = (args: Array<string>) : ExerciseValues => {
-  if (args.length < 3) throw new Error('too few arguments');
-  if (args.length > 50) throw new Error('too many arguments');
-
-  args.shift()
-  const argsToNumbers = args.map(value => Number(value));
-  if (!argsToNumbers.includes(NaN)) {
-    const target = Number(argsToNumbers.shift())
-    const average = (argsToNumbers.reduce((a, b) => a + b, 0)) / argsToNumbers.length
-    return {
-      periodLength: argsToNumbers.length,
-      trainingDays: (argsToNumbers.filter(d => !(d === 0))).length,
-      success: target <= average ? true : false,
-      target: target,
-      average: average,
-      }
-  } else {
-    throw new Error('wrong types');
-  }
-}
-
-const calculateExercises = (periodLength: number, trainingDays: number,
-  success: boolean, target: number, average: number) : ExercisesResult => {
-
+const calculateExercises = (exercisePeriod: Array<number>, target: number) : ExerciseCalcTypes => {
+  const periodLength = exercisePeriod.length;
+  const trainingDays = (exercisePeriod.filter(d => !(d === 0))).length;
+  const average = (exercisePeriod.reduce((a, b) => a + b, 0)) / periodLength;
+  const success = target <= average ? true : false;
   let rating = 0;
   let ratingDescription = '';
   
@@ -75,13 +69,12 @@ const calculateExercises = (periodLength: number, trainingDays: number,
       ratingDescription: ratingDescription,
       target: target,
       average: average
-  })
-}
+  });
+};
 
 try {
-  (process.argv).shift();
-  const { periodLength, trainingDays, success, target, average } = parseArgs(process.argv);
-  console.log(calculateExercises(periodLength, trainingDays, success, target, average))
+  const { exercisePeriod, target} = parseArgs(process.argv);
+  calculateExercises(exercisePeriod, target);
 } catch (error) {
   console.log('error: ', error.message);
 }
