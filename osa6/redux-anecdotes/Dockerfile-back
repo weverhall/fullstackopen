@@ -1,0 +1,15 @@
+FROM node:18-bookworm-slim
+
+EXPOSE 3001
+
+WORKDIR /app
+
+COPY ./package*.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "server"]
+
+# docker run -d -p 3001:3001 back
