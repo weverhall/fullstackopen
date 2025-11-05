@@ -20,6 +20,7 @@ const addPatient = (entry: NewPatient): PatientEntry => {
   const id = uuid();
   const newPatient = {
     id,
+    occupation: entry.occupation ?? '', // If occupation is missing, return empty string.
     ...entry,
   };
 

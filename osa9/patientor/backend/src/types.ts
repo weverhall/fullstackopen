@@ -1,3 +1,6 @@
+import { z } from 'zod';
+import { newPatientSchema } from './utils';
+
 export interface DiagnosisEntry {
   code: string;
   name: string;
@@ -10,8 +13,12 @@ export interface PatientEntry {
   dateOfBirth: string;
   ssn: string;
   gender: Gender;
-  occupation: string;
+  occupation?: string;
 }
+// Could remove all schema duplication with this (but the explicit interface might be more clear):
+// export interface PatientEntry extends NewPatient {
+//   id: number;
+// }
 
 export enum Gender {
   Male = 'male',
@@ -21,4 +28,4 @@ export enum Gender {
 
 export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
 
-export type NewPatient = Omit<PatientEntry, 'id'>;
+export type NewPatient = z.infer<typeof newPatientSchema>;
