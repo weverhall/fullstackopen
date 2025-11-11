@@ -12,15 +12,16 @@ const getNonSensitivePatientData = (): NonSensitivePatientEntry[] => {
   }));
 };
 
-const getPatientData = (): PatientEntry[] => {
-  return patientData;
+const getPatient = (id: string): PatientEntry | undefined => {
+  return patientData.find((p) => p.id === id);
 };
 
-const addPatient = (entry: NewPatient): PatientEntry => {
+const addPatient = (entry: NewPatient): NonSensitivePatientEntry => {
   const id = uuid();
   const newPatient = {
     id,
     occupation: entry.occupation ?? '', // If occupation is missing, return empty string.
+    entries: [], // Always initialize as an emptry array.
     ...entry,
   };
 
@@ -29,7 +30,7 @@ const addPatient = (entry: NewPatient): PatientEntry => {
 };
 
 export default {
-  getPatientData,
+  getPatient,
   getNonSensitivePatientData,
   addPatient,
 };

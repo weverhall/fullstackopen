@@ -8,6 +8,7 @@ const data = [
     ssn: '090786-122X',
     gender: Gender.Male,
     occupation: 'New york city cop',
+    entries: [],
   },
   {
     id: '8c0de0d0-ba5d-11f0-bb06-6925430572ef',
@@ -16,6 +17,7 @@ const data = [
     ssn: '300179-77A',
     gender: Gender.Male,
     occupation: 'Cop',
+    entries: [],
   },
   {
     id: '99b7f4a0-ba5d-11f0-a4f7-13604e89386c',
@@ -24,6 +26,7 @@ const data = [
     ssn: '250470-555L',
     gender: Gender.Other,
     occupation: 'Technician',
+    entries: [],
   },
   {
     id: '9b5c2ec0-ba5d-11f0-89c1-37d9542ca179',
@@ -32,6 +35,7 @@ const data = [
     ssn: '050174-432N',
     gender: Gender.Female,
     occupation: 'Forensic Pathologist',
+    entries: [],
   },
   {
     id: '9c271fe0-ba5d-11f0-bffd-9bda0ec3711b',
@@ -40,6 +44,7 @@ const data = [
     ssn: '090471-8890',
     gender: Gender.Male,
     occupation: 'Digital evangelist',
+    entries: [],
   },
 ];
 
