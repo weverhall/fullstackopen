@@ -1,8 +1,56 @@
 import { z } from 'zod';
 import { newPatientSchema } from './utils';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface Entry {}
+export interface Diagnosis {
+  code: string;
+  name: string;
+  latin?: string;
+}
+
+interface BaseEntry {
+  id: string;
+  description: string;
+  date: string;
+  specialist: string;
+  diagnosisCodes?: Array<Diagnosis['code']>;
+}
+
+interface Discharge {
+  date: string;
+  criteria: string;
+}
+
+interface HospitalEntry extends BaseEntry {
+  type: 'Hospital';
+  discharge: Discharge;
+}
+
+export enum HealthCheckRating {
+  'Healthy' = 0,
+  'LowRisk' = 1,
+  'HighRisk' = 2,
+  'CriticalRisk' = 3,
+}
+
+interface HealthCheckEntry extends BaseEntry {
+  type: 'HealthCheck';
+  healthCheckRating: HealthCheckRating;
+}
+
+interface SickLeave {
+  startDate: string;
+  endDate: string;
+}
+
+interface OccupationalHealthcareEntry extends BaseEntry {
+  type: 'OccupationalHealthcare';
+  employerName: string;
+  sickLeave?: SickLeave;
+}
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
 
 export interface DiagnosisEntry {
   code: string;
@@ -19,10 +67,6 @@ export interface PatientEntry {
   occupation?: string;
   entries: Entry[];
 }
-// Could remove all schema duplication with this (but the explicit interface might be more clear):
-// export interface PatientEntry extends NewPatient {
-//   id: number;
-// }
 
 export enum Gender {
   Male = 'male',
@@ -33,3 +77,10 @@ export enum Gender {
 export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn' | 'entries'>;
 
 export type NewPatient = z.infer<typeof newPatientSchema>;
+
+export type EntryWithoutId = UnionOmit<Entry, 'id'>;
+
+export type Entry =
+  | HospitalEntry
+  | OccupationalHealthcareEntry
+  | HealthCheckEntry;
