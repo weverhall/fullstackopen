@@ -1,11 +1,11 @@
 # Full Stack Open
 
-University of Helsinki coursework
+University of Helsinki coursework.
 
-Material and exercises: https://fullstackopen.com/
+[Material and exercises can be found here](https://fullstackopen.com/)
 
-## Parts in separate repos
+## Course modules in separate repos
 
-Part 3: https://github.com/weverhall/fullstackopen-osa3/
+[Part 11: CI/CD](https://github.com/weverhall/fullstackopen-cicd/)
 
-Part 12: https://github.com/weverhall/fullstackopen-containers/
+[Part 12: Containers](https://github.com/weverhall/fullstackopen-containers/)
